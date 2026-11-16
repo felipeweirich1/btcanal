@@ -37,7 +37,7 @@
   --up:#34d399; --down:#fb7185; --side:#fbbf24;
   --up-bg:rgba(52,211,153,.12); --down-bg:rgba(251,113,133,.12); --side-bg:rgba(251,191,36,.11);
   --hv:rgba(234,238,246,.55); --lv:rgba(234,238,246,.12);
-  --c1:#94a3b8; --c2:#22d3ee; --c3:#a78bfa; --c4:#fb923c; --c5:#4ade80; --c6:#f472b6; --c7:#facc15; --c8:#60a5fa;
+  --c1:#94a3b8; --c2:#22d3ee; --c3:#a78bfa; --c4:#fb923c; --c5:#4ade80; --c6:#f472b6; --c7:#facc15; --c8:#60a5fa; --c9:#2dd4bf; --c10:#e879f9; --c11:#f87171;
   --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 20px 50px -24px rgba(0,0,0,.7);
   --glow:0 0 0 1px rgba(247,147,26,.35),0 10px 40px -10px rgba(247,147,26,.45);
   --f-display:"Sora",ui-sans-serif,system-ui,sans-serif;
@@ -54,7 +54,7 @@
   --up:#059669; --down:#e11d48; --side:#b45309;
   --up-bg:rgba(5,150,105,.10); --down-bg:rgba(225,29,72,.09); --side-bg:rgba(180,83,9,.10);
   --hv:rgba(13,19,36,.5); --lv:rgba(13,19,36,.10);
-  --c1:#64748b; --c2:#0891b2; --c3:#7c3aed; --c4:#ea580c; --c5:#16a34a; --c6:#db2777; --c7:#ca8a04; --c8:#2563eb;
+  --c1:#64748b; --c2:#0891b2; --c3:#7c3aed; --c4:#ea580c; --c5:#16a34a; --c6:#db2777; --c7:#ca8a04; --c8:#2563eb; --c9:#0d9488; --c10:#c026d3; --c11:#dc2626;
   --shadow:0 1px 2px rgba(15,23,42,.04),0 18px 40px -22px rgba(15,23,42,.22);
   --glow:0 0 0 1px rgba(229,122,0,.35),0 10px 30px -12px rgba(229,122,0,.4);
   color-scheme:light;
@@ -67,7 +67,7 @@
   --up:#059669; --down:#e11d48; --side:#b45309;
   --up-bg:rgba(5,150,105,.10); --down-bg:rgba(225,29,72,.09); --side-bg:rgba(180,83,9,.10);
   --hv:rgba(13,19,36,.5); --lv:rgba(13,19,36,.10);
-  --c1:#64748b; --c2:#0891b2; --c3:#7c3aed; --c4:#ea580c; --c5:#16a34a; --c6:#db2777; --c7:#ca8a04; --c8:#2563eb;
+  --c1:#64748b; --c2:#0891b2; --c3:#7c3aed; --c4:#ea580c; --c5:#16a34a; --c6:#db2777; --c7:#ca8a04; --c8:#2563eb; --c9:#0d9488; --c10:#c026d3; --c11:#dc2626;
   --shadow:0 1px 2px rgba(15,23,42,.04),0 18px 40px -22px rgba(15,23,42,.22);
   --glow:0 0 0 1px rgba(229,122,0,.35),0 10px 30px -12px rgba(229,122,0,.4);
   color-scheme:light}}
@@ -408,7 +408,7 @@ body.theming,body.theming *{transition:background-color .35s ease,color .35s eas
     <div>
       <span class="badge"><b>NOVO</b> Walk-forward com várias janelas</span>
       <h1>Qual estratégia funciona <span class="grad-text">em cada regime</span> do mercado cripto?</h1>
-      <p class="lede">Cada dia é classificado como alta, baixa ou lateral, com volatilidade alta ou baixa, usando só dados até aquele dia. Oito estratégias rodam com custos, stop e alvo, e o walk-forward mostra o que se sustenta fora da amostra.</p>
+      <p class="lede">Cada dia é classificado como alta, baixa ou lateral, com volatilidade alta ou baixa, usando só dados até aquele dia. Onze estratégias rodam com custos, stop e alvo, e o walk-forward mostra o que se sustenta fora da amostra.</p>
       <div class="cta">
         <a class="btn-primary" href="#resumo"><svg class="i" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/></svg>Ver resultados</a>
         <button class="btn-ghost" type="button" id="ctaSettings"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/></svg><span>Ajustar<span class="hide-sm"> o backtest</span></span></button>
@@ -466,8 +466,12 @@ body.theming,body.theming *{transition:background-color .35s ease,color .35s eas
         </div>
       </div>
       <div class="sgroup">
-        <h3>Direção</h3>
+        <h3>Regime e direção</h3>
         <div class="controls">
+          <div class="field" style="flex-basis:100%"><span class="lab">Detectar a tendência por</span>
+            <div class="seg" id="segRsrc" role="group" aria-label="Método de regime">
+              <button data-v="sma" aria-pressed="true">Média móvel</button><button data-v="hmm" aria-pressed="false">Modelo oculto (HMM)</button>
+            </div></div>
           <div class="field" style="flex-basis:100%"><span class="lab">Operar só a favor da tendência</span>
             <div class="seg" id="segTF" role="group" aria-label="Filtro de tendência">
               <button data-v="strict" aria-pressed="true">Sim, fora na lateral</button><button data-v="loose" aria-pressed="false">Sim, livre na lateral</button><button data-v="off" aria-pressed="false">Não</button>
@@ -543,7 +547,16 @@ body.theming,body.theming *{transition:background-color .35s ease,color .35s eas
         <div class="seg" id="segStops" role="group" aria-label="Aplicar stops">
           <button data-v="on">Sim</button><button data-v="off">Não, sem stops</button>
         </div></div>
+      <div class="field"><span class="lab">Tipo de stop</span>
+        <div class="seg" id="segStopMode" role="group" aria-label="Tipo de stop">
+          <button data-v="fixed">Fixo</button><button data-v="trail">Móvel (trailing)</button><button data-v="atr">Por ATR</button>
+        </div></div>
+      <div class="field"><span class="lab">Alvo</span>
+        <div class="seg" id="segRoi" role="group" aria-label="Tipo de alvo">
+          <button data-v="fixed">Fixo</button><button data-v="decay">Cai com o tempo</button>
+        </div></div>
     </div>
+    <p class="tfnote" style="margin:0 0 14px"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h0M11 12h1v5h1"/></svg><span id="exitNote"></span></p>
     <div class="scroll"><table id="stopsTable"></table></div>
     <div class="panel-head" style="margin:24px 0 12px">
       <div><h3 id="gridHead">Grade completa no treino</h3><p class="lede" style="font-size:12px">Linhas: stop loss. Colunas: take profit. A borda marca a combinação escolhida. "Sem" significa nível desligado.</p></div>
@@ -661,16 +674,19 @@ const STRATS = [
   {id:"don",name:"Rompimento Donchian",kind:"Rompimento",desc:"Entra ao romper a máxima de N dias, sai ao perder a mínima de M dias.",params:[{k:"entry",label:"Entrada",v:20,min:2},{k:"exit",label:"Saída",v:10,min:2}]},
   {id:"rsi",name:"Reversão por RSI",kind:"Reversão",desc:"Compra com RSI abaixo do nível baixo, vende acima do nível de saída.",params:[{k:"n",label:"Período",v:14,min:2},{k:"lo",label:"Entrada <",v:30,min:1},{k:"hi",label:"Saída >",v:55,min:1}]},
   {id:"bb",name:"Reversão Bollinger",kind:"Reversão",desc:"Compra abaixo da banda inferior, sai na média.",params:[{k:"n",label:"Período",v:20,min:2},{k:"k",label:"Desvios",v:2,min:0.5,step:0.1}]},
+  {id:"adx",name:"ADX + DMI",kind:"Tendência",desc:"Comprado quando há tendência forte (ADX acima do limite) e +DI acima de -DI.",params:[{k:"n",label:"Período",v:14,min:2},{k:"thr",label:"ADX mínimo",v:20,min:1}]},
+  {id:"st",name:"Supertrend",kind:"Tendência",desc:"Comprado com o preço acima da linha Supertrend (ATR × multiplicador).",params:[{k:"n",label:"ATR",v:10,min:2},{k:"m",label:"Multiplicador",v:3,min:0.5,step:0.1}]},
+  {id:"ichi",name:"Ichimoku",kind:"Tendência",desc:"Comprado com o preço acima da nuvem e Tenkan acima de Kijun.",params:[{k:"t",label:"Tenkan",v:9,min:2},{k:"k",label:"Kijun",v:26,min:2},{k:"s",label:"Senkou B",v:52,min:2}]},
 ];
 const ADAPT = {id:"adapt",name:"Adaptativa por regime",kind:"Meta"};
-const COLORS = {bh:"--c1",sma:"--c2",trend:"--c3",mom:"--c4",macd:"--c5",don:"--c6",rsi:"--c7",bb:"--c8",adapt:"--accent"};
+const COLORS = {bh:"--c1",sma:"--c2",trend:"--c3",mom:"--c4",macd:"--c5",don:"--c6",rsi:"--c7",bb:"--c8",adx:"--c9",st:"--c10",ichi:"--c11",adapt:"--accent"};
 const REG_LABEL = {up:"Alta",down:"Baixa",side:"Lateral",hv:"Vol. alta",lv:"Vol. baixa"};
 const SCHEMES = {trend:["up","down","side"],vol:["hv","lv"],both:["up-hv","up-lv","down-hv","down-lv","side-hv","side-lv"]};
 const DEF_REGIME = {sma:200,slope:20,band:5,vol:30};
 
 const st = {asset:"BTCUSDT",scheme:"trend",metric:"sharpe",sample:"test",val:"wf",folds:5,wfInit:40,wfMode:"anchored",split:70,fee:10,short:false,tf:"strict",from:null,to:null,
   tl:{period:"30",from:null,to:null,dir:"all",status:"all",strats:{}},tlShown:50,
-  stops:"on",stopCrit:"wins",gridStrat:"sma",gridMetric:"w",
+  stops:"on",stopCrit:"wins",stopMode:"fixed",roi:"fixed",rsrc:"sma",gridStrat:"sma",gridMetric:"w",
   regime:{...DEF_REGIME},params:{},visible:{}};
 function defaults(){STRATS.forEach(s=>{st.params[s.id]={};s.params.forEach(p=>st.params[s.id][p.k]=p.v);});}
 defaults();
@@ -691,6 +707,26 @@ function sma(a,n){const o=new Float64Array(a.length).fill(NaN);let s=0;for(let i
 function rstd(a,n){const o=new Float64Array(a.length).fill(NaN);let s=0,q=0;for(let i=0;i<a.length;i++){s+=a[i];q+=a[i]*a[i];if(i>=n){s-=a[i-n];q-=a[i-n]*a[i-n];}if(i>=n-1){const m=s/n;o[i]=Math.sqrt(Math.max(0,q/n-m*m));}}return o;}
 function ema(a,n){const o=new Float64Array(a.length);const k=2/(n+1);o[0]=a[0];for(let i=1;i<a.length;i++)o[i]=a[i]*k+o[i-1]*(1-k);return o;}
 function rsi(c,n){const o=new Float64Array(c.length).fill(NaN);let g=0,l=0;for(let i=1;i<c.length;i++){const d=c[i]-c[i-1],up=Math.max(d,0),dn=Math.max(-d,0);if(i<=n){g+=up;l+=dn;if(i===n){g/=n;l/=n;o[i]=l===0?100:100-100/(1+g/l);}}else{g=(g*(n-1)+up)/n;l=(l*(n-1)+dn)/n;o[i]=l===0?100:100-100/(1+g/l);}}return o;}
+// ---- Indicators added for ADX/DMI, Supertrend and Ichimoku. Written from the standard definitions
+// (J. Welles Wilder, 1978; Goichi Hosoda); no third-party code.
+// Directional Movement: +DI, -DI and ADX with Wilder smoothing.
+function dmi(h,l,c,n){const N=c.length,pdi=new Float64Array(N).fill(NaN),mdi=new Float64Array(N).fill(NaN),adx=new Float64Array(N).fill(NaN);
+  let tr=0,pd=0,md=0,dxs=0;
+  for(let i=1;i<N;i++){const up=h[i]-h[i-1],dn=l[i-1]-l[i],p=up>dn&&up>0?up:0,m=dn>up&&dn>0?dn:0,t=Math.max(h[i]-l[i],Math.abs(h[i]-c[i-1]),Math.abs(l[i]-c[i-1]));
+    if(i<=n){tr+=t;pd+=p;md+=m;}else{tr=tr-tr/n+t;pd=pd-pd/n+p;md=md-md/n+m;}
+    if(i>=n){pdi[i]=tr>0?100*pd/tr:0;mdi[i]=tr>0?100*md/tr:0;const s=pdi[i]+mdi[i],dx=s>0?100*Math.abs(pdi[i]-mdi[i])/s:0;
+      if(i<2*n){dxs+=dx;}else if(i===2*n){dxs+=dx;adx[i]=dxs/(n+1);}else adx[i]=(adx[i-1]*(n-1)+dx)/n;}}
+  return{adx,pdi,mdi};}
+// Supertrend direction (+1 above, -1 below) from hl2 +- m x ATR(n) with the usual band-locking rules.
+function supertrend(h,l,c,n,m){const N=c.length,a=atrW(h,l,c,n),dir=new Float64Array(N);let ub=NaN,lb=NaN,d=1;
+  for(let i=0;i<N;i++){if(isNaN(a[i]))continue;const mid=(h[i]+l[i])/2,bu=mid+m*a[i],bl=mid-m*a[i];
+    if(isNaN(ub)){ub=bu;lb=bl;d=c[i]>=mid?1:-1;}
+    else{ub=bu<ub||c[i-1]>ub?bu:ub;lb=bl>lb||c[i-1]<lb?bl:lb;if(d>0&&c[i]<lb)d=-1;else if(d<0&&c[i]>ub)d=1;}
+    dir[i]=d;}return dir;}
+// Midpoint of the highest high and lowest low of the last n days (Ichimoku lines).
+function midpt(h,l,n){const N=h.length,o=new Float64Array(N).fill(NaN);for(let i=n-1;i<N;i++){let hh=-Infinity,ll=Infinity;for(let j=i-n+1;j<=i;j++){if(h[j]>hh)hh=h[j];if(l[j]<ll)ll=l[j];}o[i]=(hh+ll)/2;}return o;}
+// Average True Range with Wilder smoothing.
+function atrW(h,l,c,n){const N=c.length,o=new Float64Array(N).fill(NaN);let s=0;for(let i=1;i<N;i++){const tr=Math.max(h[i]-l[i],Math.abs(h[i]-c[i-1]),Math.abs(l[i]-c[i-1]));if(i<=n){s+=tr;if(i===n)o[i]=s/n;}else o[i]=(o[i-1]*(n-1)+tr)/n;}return o;}
 function rmax(a,n,t){let m=-Infinity;for(let j=t-n;j<t;j++)if(a[j]>m)m=a[j];return m;}
 function rmin(a,n,t){let m=Infinity;for(let j=t-n;j<t;j++)if(a[j]<m)m=a[j];return m;}
 
@@ -717,9 +753,76 @@ function signals(id,p,c,h,l,short){
       else if(cur===1){if(c[t]>m[t])cur=0;}
       else{if(c[t]<m[t])cur=0;}
       pos[t]=cur;}return{pos,warm:p.n};}
+    case"adx":{const {adx,pdi,mdi}=dmi(h,l,c,p.n);for(let t=0;t<N;t++){if(isNaN(adx[t]))continue;pos[t]=adx[t]>=p.thr?(pdi[t]>mdi[t]?1:S):0;}return{pos,warm:2*p.n+1};}
+    case"st":{const dir=supertrend(h,l,c,p.n,p.m);for(let t=0;t<N;t++)pos[t]=dir[t]>0?1:dir[t]<0?S:0;return{pos,warm:p.n+1};}
+    case"ichi":{const tk=midpt(h,l,p.t),kj=midpt(h,l,p.k),sb=midpt(h,l,p.s),sh=p.k;
+      for(let t=sh;t<N;t++){const a=(tk[t-sh]+kj[t-sh])/2,b=sb[t-sh];if(isNaN(a)||isNaN(b)||isNaN(tk[t])||isNaN(kj[t]))continue;
+        const top=Math.max(a,b),bot=Math.min(a,b);pos[t]=c[t]>top&&tk[t]>kj[t]?1:c[t]<bot&&tk[t]<kj[t]?S:0;}return{pos,warm:p.s+sh};}
   }
 }
 
+// ---- Trend regime by a Gaussian hidden Markov model (own implementation of the standard
+// Baum-Welch / forward algorithms, the same approach as the hmmlearn library; no code copied).
+// Features per day: 5-day log return and log of 10-day realized volatility, standardized with the
+// fitting window. The model is fitted only on days before `fitEnd` (the first test day), then each
+// day's state comes from forward filtering, which uses only data up to that day.
+function hmmFeatures(c){
+  const N=c.length,X=new Array(N).fill(null),lr=new Float64Array(N);
+  for(let t=1;t<N;t++)lr[t]=Math.log(c[t]/c[t-1]);
+  for(let t=10;t<N;t++){let s=0,q=0;for(let j=t-9;j<=t;j++){s+=lr[j];q+=lr[j]*lr[j];}const sd=Math.sqrt(Math.max(1e-12,(q-s*s/10)/9));
+    X[t]=[Math.log(c[t]/c[t-5]),Math.log(sd)];}
+  return X;
+}
+function hmmFit(X,K,iters){
+  const T=X.length,D=X[0].length;
+  // init: split by quantiles of the first feature
+  const ord=X.map((x,i)=>i).sort((a,b)=>X[a][0]-X[b][0]);
+  let mu=[],va=[];
+  for(let k=0;k<K;k++){const g=ord.slice(Math.floor(k*T/K),Math.floor((k+1)*T/K)).map(i=>X[i]);
+    mu.push([...Array(D)].map((_,d)=>g.reduce((s,x)=>s+x[d],0)/g.length));
+    va.push([...Array(D)].map((_,d)=>Math.max(1e-3,g.reduce((s,x)=>s+(x[d]-mu[k][d])**2,0)/g.length)));}
+  let A=[...Array(K)].map((_,i)=>[...Array(K)].map((_,j)=>i===j?0.95:0.05/(K-1))),pi=Array(K).fill(1/K),prev=-Infinity;
+  const B=[...Array(T)].map(()=>new Float64Array(K)),al=[...Array(T)].map(()=>new Float64Array(K)),be=[...Array(T)].map(()=>new Float64Array(K)),sc=new Float64Array(T);
+  for(let it=0;it<iters;it++){
+    for(let t=0;t<T;t++)for(let k=0;k<K;k++){let lp=0;for(let d=0;d<D;d++){const z=X[t][d]-mu[k][d];lp+=-0.5*(Math.log(2*Math.PI*va[k][d])+z*z/va[k][d]);}B[t][k]=Math.exp(Math.max(lp,-700));}
+    // forward (scaled)
+    let s=0;for(let k=0;k<K;k++){al[0][k]=pi[k]*B[0][k];s+=al[0][k];}sc[0]=s||1e-300;for(let k=0;k<K;k++)al[0][k]/=sc[0];
+    for(let t=1;t<T;t++){s=0;for(let j=0;j<K;j++){let a=0;for(let i=0;i<K;i++)a+=al[t-1][i]*A[i][j];al[t][j]=a*B[t][j];s+=al[t][j];}sc[t]=s||1e-300;for(let j=0;j<K;j++)al[t][j]/=sc[t];}
+    // backward (scaled)
+    for(let k=0;k<K;k++)be[T-1][k]=1;
+    for(let t=T-2;t>=0;t--)for(let i=0;i<K;i++){let b=0;for(let j=0;j<K;j++)b+=A[i][j]*B[t+1][j]*be[t+1][j];be[t][i]=b/sc[t+1];}
+    // E step sums and M step
+    const g0=new Float64Array(K),gs=new Float64Array(K),xs=[...Array(K)].map(()=>new Float64Array(K)),m1=[...Array(K)].map(()=>new Float64Array(D)),m2=[...Array(K)].map(()=>new Float64Array(D));
+    for(let t=0;t<T;t++){let n=0;const g=new Float64Array(K);for(let k=0;k<K;k++){g[k]=al[t][k]*be[t][k];n+=g[k];}
+      for(let k=0;k<K;k++){g[k]/=n||1;if(t===0)g0[k]=g[k];gs[k]+=g[k];for(let d=0;d<D;d++){m1[k][d]+=g[k]*X[t][d];m2[k][d]+=g[k]*X[t][d]*X[t][d];}}
+      if(t<T-1){for(let i=0;i<K;i++)for(let j=0;j<K;j++)xs[i][j]+=al[t][i]*A[i][j]*B[t+1][j]*be[t+1][j]/sc[t+1];}}
+    pi=[...g0];
+    A=A.map((row,i)=>{const r=xs[i],tot=r.reduce((a,b)=>a+b,0)||1;return[...r].map(v=>Math.max(v/tot,1e-6));});
+    mu=mu.map((m,k)=>[...m1[k]].map(v=>v/(gs[k]||1)));
+    va=va.map((v,k)=>[...m2[k]].map((q,d)=>Math.max(1e-3,q/(gs[k]||1)-mu[k][d]**2)));
+    let ll=0;for(let t=0;t<T;t++)ll+=Math.log(sc[t]);
+    if(Math.abs(ll-prev)<1e-4*Math.abs(ll))break;prev=ll;
+  }
+  return{pi,A,mu,va,K,D};
+}
+function hmmTrend(c,fitEnd){
+  const N=c.length,F=hmmFeatures(c),K=3,trend=new Array(N).fill(null),prob=new Array(N).fill(null);
+  const fitIdx=[];for(let t=0;t<fitEnd;t++)if(F[t])fitIdx.push(t);
+  if(fitIdx.length<200)return{trend,prob,ok:false};
+  const D=2,mean=[0,0],sd=[0,0];
+  for(let d=0;d<D;d++){mean[d]=fitIdx.reduce((s,t)=>s+F[t][d],0)/fitIdx.length;sd[d]=Math.sqrt(fitIdx.reduce((s,t)=>s+(F[t][d]-mean[d])**2,0)/fitIdx.length)||1;}
+  const Z=t=>F[t].map((v,d)=>(v-mean[d])/sd[d]);
+  const m=hmmFit(fitIdx.map(Z),K,80);
+  // label states by mean return: lowest = down, highest = up, the other = sideways
+  const order=[...Array(K).keys()].sort((a,b)=>m.mu[a][0]-m.mu[b][0]),lab=[];lab[order[0]]="down";lab[order[K-1]]="up";for(let i=1;i<K-1;i++)lab[order[i]]="side";
+  let al=null;
+  for(let t=0;t<N;t++){if(!F[t])continue;const x=Z(t),b=new Float64Array(K);
+    for(let k=0;k<K;k++){let lp=0;for(let d=0;d<D;d++){const z=x[d]-m.mu[k][d];lp+=-0.5*(Math.log(2*Math.PI*m.va[k][d])+z*z/m.va[k][d]);}b[k]=Math.exp(Math.max(lp,-700));}
+    const nx=new Float64Array(K);let s=0;for(let j=0;j<K;j++){let a=0;if(!al)a=m.pi[j];else for(let i=0;i<K;i++)a+=al[i]*m.A[i][j];nx[j]=a*b[j];s+=nx[j];}
+    for(let j=0;j<K;j++)nx[j]=s>0?nx[j]/s:1/K;al=nx;
+    let bk=0;for(let k=1;k<K;k++)if(al[k]>al[bk])bk=k;trend[t]=lab[bk];prob[t]=al[bk];}
+  return{trend,prob,ok:true,model:m,labels:lab};
+}
 function regimes(c,g){
   const N=c.length,m=sma(c,g.sma),trend=new Array(N).fill(null),vol=new Array(N).fill(null);
   const lr=new Float64Array(N);for(let t=1;t<N;t++)lr[t]=Math.log(c[t]/c[t-1]);
@@ -748,28 +851,40 @@ function stats(r,idx){
 // Trade-level simulator. Signals act at the close; stop loss and take profit are checked on the next days'
 // open/high/low (gap through a level fills at the open; if both levels fit in one candle, the stop counts first).
 // After a stop or target, the strategy waits for its signal to leave that side before entering again.
+// Exit styles (own implementation of ideas popularized by Freqtrade; no code from it):
+//  - stop "fixed": distance from the entry price; "trail": distance from the best price since entry
+//    (best high for longs, best low for shorts, updated only after each day's checks, so the
+//    same candle never both raises and hits the stop); "atr": the grid value is a multiple of ATR(14)
+//    at entry, converted to a fixed distance.
+//  - target "decay" (ROI table): the target shrinks with the trade's age, see ROI_STEPS.
+let EX={mode:"fixed",roi:false,atrPct:null};
+const ROI_STEPS=[[0,1],[7,.5],[21,.25],[45,0]]; // [days since entry, share of the target still required]
+const roiShare=age=>{let m=1;for(const[a,f]of ROI_STEPS)if(age>=a)m=f;return m;};
 function simulate(pos,D,fee,start,end,sl,tp,id){
   const {o,h,l,c}=D,N=c.length,r=new Float64Array(N),p=new Float64Array(N),trades=[];
   const SL=typeof sl==="function"?sl:()=>sl,TP=typeof tp==="function"?tp:()=>tp;
-  let side=0,entry=0,ei=-1,lock=0,cs=Infinity,ct=Infinity;
+  const trail=EX.mode==="trail",atr=EX.mode==="atr"&&EX.atrPct,roi=EX.roi;
+  let side=0,entry=0,ei=-1,lock=0,cs=Infinity,ct=Infinity,best=0;
   const rec=(x,px,type)=>{const g=side>0?px/entry-1:1-px/entry;const open=type==="aberta";
     trades.push({id,i:ei,x,side,entryPx:entry,exitPx:px,exitType:type,open,first:ei===start,sl:cs,tp:ct,ret:(1+g)*(1-fee)*(open?1:1-fee)-1});};
   for(let t=start;t<=end;t++){
     if(t>start&&side!==0){
       const pc=c[t-1];let px=null,type=null;
-      if(side>0){const sp=entry*(1-cs),tq=entry*(1+ct);
-        if(o[t]<=sp){px=o[t];type="stop";}else if(o[t]>=tq){px=o[t];type="alvo";}
-        else if(l[t]<=sp){px=sp;type="stop";}else if(h[t]>=tq){px=tq;type="alvo";}}
-      else{const sp=entry*(1+cs),tq=entry*(1-ct);
-        if(o[t]>=sp){px=o[t];type="stop";}else if(o[t]<=tq){px=o[t];type="alvo";}
-        else if(h[t]>=sp){px=sp;type="stop";}else if(l[t]<=tq){px=tq;type="alvo";}}
+      const tg=roi&&isFinite(ct)?ct*roiShare(t-ei):ct,tgType=tg<ct?"roi":"alvo";
+      const ref=trail?best:entry,stType=trail&&(side>0?best*(1-cs)>entry:best*(1+cs)<entry)?"trail":"stop";
+      if(side>0){const sp=ref*(1-cs),tq=entry*(1+tg);
+        if(o[t]<=sp){px=o[t];type=stType;}else if(o[t]>=tq){px=o[t];type=tgType;}
+        else if(l[t]<=sp){px=sp;type=stType;}else if(h[t]>=tq){px=tq;type=tgType;}}
+      else{const sp=ref*(1+cs),tq=entry*(1-tg);
+        if(o[t]>=sp){px=o[t];type=stType;}else if(o[t]<=tq){px=o[t];type=tgType;}
+        else if(h[t]>=sp){px=sp;type=stType;}else if(l[t]<=tq){px=tq;type=tgType;}}
       if(px!==null){r[t]=side*(px/pc-1)-fee;rec(t,px,type);lock=side;side=0;}
-      else r[t]=side*(c[t]/pc-1);
+      else{r[t]=side*(c[t]/pc-1);if(trail)best=side>0?Math.max(best,h[t]):Math.min(best,l[t]);}
     }
     let want=pos[t];
     if(lock!==0){if(want===lock)want=0;else lock=0;}
     if(side!==0&&want!==side){r[t]-=fee;rec(t,c[t],"sinal");side=0;}
-    if(side===0&&want!==0){side=want;entry=c[t];ei=t;cs=SL(t);ct=TP(t);if(t>start)r[t]-=fee;}
+    if(side===0&&want!==0){side=want;entry=c[t];best=c[t];ei=t;cs=SL(t);if(atr&&isFinite(cs))cs=cs*atr[t];ct=TP(t);if(t>start)r[t]-=fee;}
     p[t]=side;
   }
   if(side!==0)rec(end,c[end],"aberta");
@@ -777,6 +892,9 @@ function simulate(pos,D,fee,start,end,sl,tp,id){
 }
 const SL_GRID=[0.01,0.02,0.03,0.04,0.05,0.06,0.08,0.10,0.12,0.15,0.20,0.25,Infinity];
 const TP_GRID=[0.01,0.02,0.03,0.04,0.05,0.06,0.08,0.10,0.12,0.15,0.20,0.25,0.30,0.40,0.50,Infinity];
+const ATR_GRID=[0.5,1,1.5,2,2.5,3,4,5,6,8,10,12,Infinity]; // stop in multiples of ATR(14)
+const slGrid=()=>EX.mode==="atr"?ATR_GRID:SL_GRID;
+const slFmt=v=>!isFinite(v)?"sem":EX.mode==="atr"?fmtNum(v,v%1?1:0)+"×ATR":fmtPct(v,0);
 const MIN_TRADES=8;
 function tradeSummary(tr){const n=tr.length,w=tr.filter(t=>t.ret>0).length;
   const wins=tr.filter(t=>t.ret>0),loss=tr.filter(t=>t.ret<=0);
@@ -787,7 +905,7 @@ function tradeSummary(tr){const n=tr.length,w=tr.filter(t=>t.ret>0).length;
 // start..end is the simulated range; only trades entered before `cut` (and not already open at `start`) count.
 function optimize(id,pos,D,fee,start,end,cut,train,crit){
   const grid=[];let best=null,bs=-Infinity;
-  for(const sl of SL_GRID)for(const tp of TP_GRID){
+  for(const sl of slGrid())for(const tp of TP_GRID){
     const s=simulate(pos,D,fee,start,end,sl,tp,id);
     const ts=tradeSummary(s.trades.filter(t=>t.i<cut&&!t.first));
     const sh=stats(s.r,train).sharpe;
@@ -820,8 +938,7 @@ function run(){
   const N=c.length,fee=st.fee/10000;
   const reg=regimes(c,st.regime);
   const sig={};let warm=reg.warm;
-  STRATS.forEach(s=>{sig[s.id]=signals(s.id,st.params[s.id],c,h,l,st.short);warm=Math.max(warm,sig[s.id].warm);
-    if(s.id!=="bh"&&st.tf!=="off")sig[s.id].pos=trendFilter(sig[s.id].pos,reg.trend,st.tf);});
+  STRATS.forEach(s=>{sig[s.id]=signals(s.id,st.params[s.id],c,h,l,st.short);warm=Math.max(warm,sig[s.id].warm);});
   let fromI=0,toI=N-1;
   if(st.from){const f=Math.floor(Date.parse(st.from)/86400000);fromI=d.findIndex(x=>x>=f);if(fromI<0)fromI=N-1;}
   if(st.to){const f=Math.floor(Date.parse(st.to)/86400000);let k=-1;for(let i=N-1;i>=0;i--)if(d[i]<=f){k=i;break;}toI=k<0?0:k;}
@@ -831,9 +948,14 @@ function run(){
   const folds=makeFolds(all,end);
   if(folds.error)return folds;
   const cut=folds[0].cut;
+  // HMM regime: fitted only on days before the first test day, then filtered forward
+  if(st.rsrc==="hmm"){const hm=hmmTrend(c,cut);if(hm.ok){reg.trend=hm.trend;reg.hmm=hm;}}
+  STRATS.forEach(s=>{if(s.id!=="bh"&&st.tf!=="off")sig[s.id].pos=trendFilter(sig[s.id].pos,reg.trend,st.tf);});
   const train=all.filter(t=>t<cut),test=all.filter(t=>t>=cut);
   // fold in force on day t: the last one whose test window has started (days before the first test use fold 0)
   const foldOf=t=>{let k=0;for(let j=1;j<folds.length;j++)if(folds[j].cut<=t)k=j;return k;};
+  const atr14=atrW(h,l,c,14),atrPct=new Float64Array(N);for(let t=0;t<N;t++)atrPct[t]=atr14[t]/c[t];
+  EX={mode:st.stopMode,roi:st.roi==="decay",atrPct};
   const res={},stops={},opts={},lvlFn={},D={o,h,l,c};
   STRATS.forEach(s=>{
     const pos=sig[s.id].pos;
@@ -893,19 +1015,24 @@ function renderNow(){
   $("srcNote").innerHTML=custom?`<strong>Dados.</strong> Arquivo enviado: ${escapeHtml(custom.name)}, ${custom.rows.length} candles diários.`:`<strong>Dados.</strong> Candles diários de ${src} da API pública da Binance, de ${dayBR(DATA[st.asset][0][0])} a ${dayBR(DATA[st.asset].at(-1)[0])}. É um retrato fixo; para dados mais recentes, envie um CSV.`;
   $("tfNote").textContent=st.tf==="off"?"Sem filtro: cada estratégia opera nas duas direções que seus sinais pedirem.":
     "Filtro ligado: comprado só em regime de alta"+(st.short?", vendido só em regime de baixa":"; em baixa fica fora (ative o short para operar vendido)")+(st.tf==="strict"?", fora do mercado na lateral.":", na lateral segue o sinal normal.")+" O Buy & Hold fica sem filtro, como referência.";
+  if(st.rsrc==="hmm")$("tfNote").textContent+=R.reg.hmm?" Tendência detectada por HMM de 3 estados, ajustado só com dados até "+dayBR(R.d[R.cut-1])+" e aplicado dia a dia sem olhar o futuro.":" HMM sem dados suficientes antes do teste; usando a média móvel.";
   renderSummary();renderRanking();renderMatrix();renderWF();renderStops();renderTrades();renderMetrics();renderLegend();drawPrice();drawEquity();
 }
 
 /* ---------- proposed entries ---------- */
 // An entry is a close where the position changes to long or short; it ends at the close where it changes again.
 function extractTrades(id){return R.res[id].trades.map(t=>({...t,days:R.d[t.x]-R.d[t.i]}));}
-const EXIT_LABEL={stop:"Stop",alvo:"Alvo",sinal:"Sinal",aberta:"Aberta"};
+const EXIT_LABEL={stop:"Stop",trail:"Stop móvel",alvo:"Alvo",roi:"Alvo (tempo)",sinal:"Sinal",aberta:"Aberta"};
 const lvlFmt=v=>isFinite(v)?fmtPct(v,0):"sem";
 
 function renderStops(){
   const crit={wins:"mais wins",exp:"melhor expectativa por operação",sharpe:"melhor Sharpe"}[st.stopCrit];
-  $("stopsLede").innerHTML=`Para cada estratégia, ${SL_GRID.length*TP_GRID.length} combinações de stop (${SL_GRID.length-1} níveis + sem) e alvo (${TP_GRID.length-1} níveis + sem), medidos a partir do preço de entrada. A escolha usa só o período de treino, pela opção de <strong>${crit}</strong>, exigindo pelo menos ${MIN_TRADES} operações. As colunas de teste mostram se ela se manteve depois.`+
+  $("stopsLede").innerHTML=`Para cada estratégia, ${slGrid().length*TP_GRID.length} combinações de stop (${slGrid().length-1} níveis + sem) e alvo (${TP_GRID.length-1} níveis + sem), medidos a partir do preço de entrada. A escolha usa só o período de treino, pela opção de <strong>${crit}</strong>, exigindo pelo menos ${MIN_TRADES} operações. As colunas de teste mostram se ela se manteve depois.`+
     (R.folds.length>1?` <strong>No walk-forward</strong>, a escolha é refeita antes de cada uma das ${R.folds.length} janelas de teste; as colunas de treino e a grade mostram a última escolha (a que vale hoje), e as de teste juntam todas as janelas, cada uma com os níveis escolhidos antes dela.`:"");
+  $("exitNote").innerHTML=(st.stopMode==="trail"?"<strong>Stop móvel:</strong> a distância é medida a partir do melhor preço desde a entrada (máxima, na compra; mínima, na venda), atualizado no fim de cada dia. Protege lucro: um stop móvel acima do preço de entrada sai no positivo. ":
+    st.stopMode==="atr"?"<strong>Stop por ATR:</strong> a grade usa múltiplos do ATR de 14 dias no dia da entrada (por exemplo, 2×ATR). Em mercado mais volátil o stop fica mais largo, em mercado calmo mais curto. ":
+    "<strong>Stop fixo:</strong> distância em % a partir do preço de entrada. ")+
+    (st.roi==="decay"?`<strong>Alvo que cai com o tempo</strong> (tabela de ROI): o alvo inteiro vale até o 6º dia, metade do 7º ao 20º, um quarto do 21º ao 44º e, a partir do 45º dia, qualquer preço acima da entrada encerra a operação. Saídas assim aparecem como "Alvo (tempo)".`:"<strong>Alvo fixo:</strong> o mesmo alvo durante toda a operação.");
   $("gridHead").textContent=R.folds.length>1?"Grade completa na última janela de treino":"Grade completa no treino";
   const ss=STRATS.filter(s=>s.id!=="bh");
   const cls=v=>v>=0?"pos":"neg";
@@ -918,7 +1045,7 @@ function renderStops(){
     const teR=b?stats(simCache[s.id].r,R.test).cagr:NaN,baR=stats(R.res[s.id].base.r,R.test).cagr;
     const warn=!b?`<span class="days" style="font-size:11px">menos de ${MIN_TRADES} operações no treino, sem stops</span>`:isFinite(te.exp)&&te.exp<0?`<span class="warn">perde em média no teste</span>`:"";
     h+=`<tr><td><div class="sname"><i style="background:var(${COLORS[s.id]})"></i><span>${s.name}${warn}</span></div></td>
-      <td class="num">${b?lvlFmt(b.sl):"–"}</td><td class="num">${b?lvlFmt(b.tp):"–"}</td>
+      <td class="num">${b?slFmt(b.sl):"–"}</td><td class="num">${b?lvlFmt(b.tp):"–"}</td>
       <td class="num">${b?b.n:"–"}</td><td class="num">${b?b.w:"–"}</td><td class="num">${b?fmtPct(b.wr,0):"–"}</td><td class="num ${b?cls(b.exp):""}">${b?fmtPct(b.exp,2):"–"}</td>
       <td class="num">${te.n}</td><td class="num">${te.w}</td><td class="num">${fmtPct(te.wr,0)}</td><td class="num ${cls(te.exp)}">${fmtPct(te.exp,2)}</td><td class="num ${cls(teR)}">${fmtPct(teR)}</td>
       <td class="num">${fmtPct(ba.wr,0)}</td><td class="num ${cls(ba.exp)}">${fmtPct(ba.exp,2)}</td><td class="num ${cls(baR)}">${fmtPct(baR)}</td></tr>`;});
@@ -934,9 +1061,9 @@ function renderStops(){
     const a=Math.max(0,(v-mn)/(mx-mn||1));return`color-mix(in srgb, var(--accent) ${Math.round(a*55)}%, transparent)`;};
   const fmt=c=>M==="w"?c.w:M==="wr"?fmtPct(c.wr,0):fmtPct(c.exp,1);
   let g=`<thead><tr><th>Stop \\ Alvo</th>${TP_GRID.map(tp=>`<th>${lvlFmt(tp)}</th>`).join("")}</tr></thead><tbody>`;
-  SL_GRID.forEach(sl=>{g+=`<tr><th style="text-align:left">${lvlFmt(sl)}</th>`;
+  slGrid().forEach(sl=>{g+=`<tr><th style="text-align:left">${slFmt(sl)}</th>`;
     TP_GRID.forEach(tp=>{const c=o.grid.find(x=>x.sl===sl&&x.tp===tp),few=c.n<MIN_TRADES,isB=o.best&&o.best.sl===sl&&o.best.tp===tp;
-      g+=`<td class="${isB?"best":""}" style="background:${few?"transparent":color(c[M])};${few?"color:var(--muted)":""}" title="Stop ${lvlFmt(sl)}, alvo ${lvlFmt(tp)}: ${c.n} operações, ${c.w} wins, acerto ${fmtPct(c.wr,0)}, expectativa ${fmtPct(c.exp,2)}, ganho médio ${fmtPct(c.avgW,1)}, perda média ${fmtPct(c.avgL,1)}">${few?"–":fmt(c)}</td>`;});
+      g+=`<td class="${isB?"best":""}" style="background:${few?"transparent":color(c[M])};${few?"color:var(--muted)":""}" title="Stop ${slFmt(sl)}, alvo ${lvlFmt(tp)}: ${c.n} operações, ${c.w} wins, acerto ${fmtPct(c.wr,0)}, expectativa ${fmtPct(c.exp,2)}, ganho médio ${fmtPct(c.avgW,1)}, perda média ${fmtPct(c.avgL,1)}">${few?"–":fmt(c)}</td>`;});
     g+="</tr>";});
   $("stopsGrid").innerHTML=g+"</tbody>";
 }
@@ -1043,7 +1170,7 @@ function renderWF(){
     const pos=v.filter(x=>x>0).length,beat=v.filter((x,k)=>x>bh[k]).length,all=stats(R.res[id].r,R.test).cagr;
     h+=`<tr class="${id==="adapt"?"adapt":""}"><td><div class="sname"><i style="background:var(${COLORS[id]})"></i><span>${s.name}</span></div></td>`;
     F.forEach((f,k)=>{const o=R.opts[id]&&R.opts[id][k],b=st.stops==="on"&&o&&o.best;
-      h+=`<td class="heat" style="background:${heatColor(v[k],0.6)}">${fmtPct(v[k],0)}${b?`<span class="days" style="display:block">${lvlFmt(b.sl)} · ${lvlFmt(b.tp)}</span>`:""}</td>`;});
+      h+=`<td class="heat" style="background:${heatColor(v[k],0.6)}">${fmtPct(v[k],0)}${b?`<span class="days" style="display:block">${slFmt(b.sl)} · ${lvlFmt(b.tp)}</span>`:""}</td>`;});
     h+=`<td class="num">${pos}/${K}</td><td class="num">${id==="bh"?"–":beat+"/"+K}</td><td class="num ${cls(all)}">${fmtPct(all)}</td></tr>`;});
   $("wfTable").innerHTML=h+"</tbody>";
   const keys=SCHEMES[st.scheme];
@@ -1153,7 +1280,7 @@ $("reset").addEventListener("click",()=>{defaults();st.regime={...DEF_REGIME};re
 
 function seg(id,key){const el=$(id);el.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;st[key]=b.dataset.v;syncSeg(id,key);renderAll();save();});}
 function syncSeg(id,key){$(id).querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===st[key])));}
-seg("segScheme","scheme");seg("segMetric","metric");seg("segSample","sample");seg("segTF","tf");seg("segStops","stops");seg("segCrit","stopCrit");seg("segVal","val");seg("segWfMode","wfMode");
+seg("segScheme","scheme");seg("segMetric","metric");seg("segSample","sample");seg("segTF","tf");seg("segStops","stops");seg("segCrit","stopCrit");seg("segStopMode","stopMode");seg("segRsrc","rsrc");seg("segRoi","roi");seg("segVal","val");seg("segWfMode","wfMode");
 function syncVal(){const wf=st.val==="wf";$("fSplit").hidden=wf;$("fWfInit").hidden=!wf;$("fFolds").hidden=!wf;$("fWfMode").hidden=!wf;$("wfPanel").hidden=!wf;}
 $("segVal").addEventListener("click",syncVal);
 $("wfInit").addEventListener("input",e=>{st.wfInit=+e.target.value;$("wfInitLab").textContent=st.wfInit+"%";schedule();});
@@ -1192,7 +1319,7 @@ function parseCSV(txt){
 }
 
 /* ---------- persistence (per viewer) ---------- */
-function save(){try{localStorage.setItem("regimelab",JSON.stringify({rank:st.rank,asset:st.asset,scheme:st.scheme,metric:st.metric,sample:st.sample,val:st.val,folds:st.folds,wfInit:st.wfInit,wfMode:st.wfMode,split:st.split,fee:st.fee,short:st.short,tf:st.tf,tl:st.tl,stops:st.stops,stopCrit:st.stopCrit,gridStrat:st.gridStrat,gridMetric:st.gridMetric,from:st.from,to:st.to,regime:st.regime,params:st.params}));}catch(e){}}
+function save(){try{localStorage.setItem("regimelab",JSON.stringify({rsrc:st.rsrc,stopMode:st.stopMode,roi:st.roi,rank:st.rank,asset:st.asset,scheme:st.scheme,metric:st.metric,sample:st.sample,val:st.val,folds:st.folds,wfInit:st.wfInit,wfMode:st.wfMode,split:st.split,fee:st.fee,short:st.short,tf:st.tf,tl:st.tl,stops:st.stops,stopCrit:st.stopCrit,gridStrat:st.gridStrat,gridMetric:st.gridMetric,from:st.from,to:st.to,regime:st.regime,params:st.params}));}catch(e){}}
 function load(){try{const v=JSON.parse(localStorage.getItem("regimelab")||"null");if(!v)return;Object.assign(st,{...v,regime:{...DEF_REGIME,...v.regime},tl:{...st.tl,...(v.tl||{}),strats:{...((v.tl||{}).strats||{})}}});STRATS.forEach(s=>{st.params[s.id]={...Object.fromEntries(s.params.map(p=>[p.k,p.v])),...(v.params||{})[s.id]};});if(!DATA[st.asset])st.asset="BTCUSDT";}catch(e){}}
 
 /* ---------- interface: hero art, tickers, theme, settings sheet, navigation ---------- */
@@ -1319,7 +1446,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-csv]");if(
   download(`regimes_${k}_${tag}.csv`,k==="trades"?tradesCSV():tableCSV(k));toast("CSV baixado");});
 
 /* ---------- shareable link (settings in the URL hash) ---------- */
-const SHARE_KEYS=["asset","scheme","metric","sample","val","folds","wfInit","wfMode","split","fee","short","tf","stops","stopCrit","from","to","regime","params","rank"];
+const SHARE_KEYS=["asset","scheme","metric","sample","val","folds","wfInit","wfMode","split","fee","short","tf","stops","stopCrit","stopMode","roi","rsrc","from","to","regime","params","rank"];
 function shareURL(){const o={};SHARE_KEYS.forEach(k=>o[k]=st[k]);const s=btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/=+$/,"");return location.origin+location.pathname+"#cfg="+s;}
 function applyHash(){const m=location.hash.match(/#cfg=([A-Za-z0-9+/]+)/);if(!m)return false;
   try{const o=JSON.parse(decodeURIComponent(escape(atob(m[1]))));SHARE_KEYS.forEach(k=>{if(o[k]!==undefined)st[k]=k==="regime"?{...DEF_REGIME,...o[k]}:o[k];});
@@ -1360,7 +1487,7 @@ syncThemeColor();
 if("serviceWorker" in navigator&&location.protocol==="https:")addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 
 load();applyHash();fillAssets();renderParams();
-["segScheme","segMetric","segSample","segTF","segStops","segCrit","segGridMetric","segVal","segWfMode"].forEach((id,i)=>syncSeg(id,["scheme","metric","sample","tf","stops","stopCrit","gridMetric","val","wfMode"][i]));syncTl();
+["segScheme","segMetric","segSample","segTF","segStops","segCrit","segGridMetric","segVal","segWfMode","segStopMode","segRoi","segRsrc"].forEach((id,i)=>syncSeg(id,["scheme","metric","sample","tf","stops","stopCrit","gridMetric","val","wfMode","stopMode","roi","rsrc"][i]));syncTl();
 $("fee").value=st.fee;$("folds").value=st.folds;$("wfInit").value=st.wfInit;$("wfInitLab").textContent=st.wfInit+"%";syncVal();$("split").value=st.split;$("splitLab").textContent=st.split+"% / "+(100-st.split)+"%";$("short").checked=st.short;$("from").value=st.from||"";$("to").value=st.to||"";
 renderAll();
 let rz=null;new ResizeObserver(()=>{clearTimeout(rz);rz=setTimeout(()=>{if(R){drawPrice();drawEquity();}},100);}).observe(document.querySelector(".wrap"));

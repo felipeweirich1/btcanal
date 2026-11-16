@@ -22,10 +22,12 @@ com os candles diários embutidos. Não há servidor, conta nem nuvem.
 
 - **Regime**: preço vs SMA(200) com faixa de ±5% e inclinação da média (tendência);
   volatilidade realizada de 30 dias vs mediana do ano anterior. Usa só dados até o dia.
-- **8 estratégias**: buy & hold, cruzamento de médias, filtro de média, momentum (ROC), MACD,
+  Opcional: tendência por **modelo oculto de Markov (HMM)** de 3 estados, ajustado só com dados anteriores ao teste.
+- **11 estratégias**: buy & hold, cruzamento de médias, filtro de média, momentum (ROC), MACD, ADX + DMI, Supertrend, Ichimoku,
   Donchian, reversão por RSI e por Bollinger. Sinal no fechamento, posição no dia seguinte.
 - **Filtro de tendência** (ligado por padrão): comprado só em alta, vendido só em baixa.
 - **Stop loss e take profit** checados no open/high/low do dia, com custo por lado.
+  Stop fixo, **móvel (trailing)** ou **por ATR**; alvo fixo ou **que cai com o tempo** (tabela de ROI, ideia do Freqtrade, implementação própria).
 - **Otimização de stop/alvo** por "mais wins", "melhor expectativa" ou "melhor Sharpe".
   A página avisa: "mais wins" tende a escolher alvo curto com stop largo, que dá acerto alto
   e expectativa negativa.
