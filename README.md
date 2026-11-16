@@ -32,6 +32,11 @@ com os candles diários embutidos. Não há servidor, conta nem nuvem.
 - **Validação**: corte único treino/teste ou **walk-forward** com várias janelas (ver abaixo).
 - **Estratégia adaptativa**: em cada regime, usa a estratégia que venceu no treino.
 - Lista de entradas com filtro de período, curvas de capital, matriz estratégia × cenário.
+- **Ranking** das estratégias por Sharpe, retorno anual ou menor queda.
+- **Link compartilhável**: o botão de compartilhar (ou a tecla S) copia um link com toda a configuração.
+- **Exportar CSV** das tabelas e da lista de entradas.
+- **Tema claro e escuro**, atalhos de teclado (tecla ? mostra a lista).
+- **Instalável como app** no celular e no computador (menu do navegador → Instalar / Adicionar à tela inicial), e funciona offline depois da primeira visita.
 
 ## Estrutura
 
@@ -42,6 +47,8 @@ data/all.json            todos os pares juntos (é o que vai embutido)
 scripts/update-data.sh   baixa candles novos da Binance e regenera a página
 scripts/build.sh         gera index.html a partir do template e de data/all.json
 index.html               página gerada, servida pelo GitHub Pages (não edite à mão)
+manifest.webmanifest     dados do app instalável; sw.js guarda a página para uso offline
+assets/                  logo, ícones e imagem de compartilhamento
 docs/CONTEXTO.md         notas técnicas do motor e lista de melhorias
 docs/img/                capturas de tela
 ```
