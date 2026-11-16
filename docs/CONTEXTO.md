@@ -42,10 +42,11 @@ todo o cálculo roda no navegador, com os candles diários embutidos.
 - O corte único de treino/teste é frágil; por isso walk-forward é a próxima melhoria.
 
 ## Melhorias combinadas com o usuário (em ordem)
-1. Walk-forward com várias janelas (implementação própria).
-2. Saídas no estilo Freqtrade: trailing stop, stop por ATR, alvo que diminui com o tempo (tabela de ROI).
-3. Mais estratégias com indicadores (ADX, Supertrend, Ichimoku), por exemplo portando da `cinar/indicatorts` (MIT).
-4. Regime por HMM, portando a lógica da `hmmlearn` (BSD-3).
+Status em 16/11/2026: 1 a 4 feitas e publicadas; 5 pendente (exige Python, ausente nesta máquina).
+1. Walk-forward com várias janelas (implementação própria). **Feito.**
+2. Saídas no estilo Freqtrade: trailing stop, stop por ATR, alvo que diminui com o tempo (tabela de ROI). **Feito** (stop móvel, stop por ATR, alvo decrescente).
+3. Mais estratégias com indicadores (ADX, Supertrend, Ichimoku), por exemplo portando da `cinar/indicatorts` (MIT). **Feito** (ADX + DMI, Supertrend, Ichimoku; escritos das definições clássicas).
+4. Regime por HMM, portando a lógica da `hmmlearn` (BSD-3). **Feito** (HMM gaussiano de 3 estados, Baum-Welch próprio, ajuste só antes do teste, filtragem para frente). Fora da amostra, os estados separam mais volatilidade do que direção; por isso a média móvel segue como padrão.
 5. Validar o motor contra `kernc/backtesting.py` e baixar outras moedas e timeframes com `ccxt` (exigem Python).
 
 Licenças: MIT/BSD podem ser adaptadas mantendo o aviso. GPL/AGPL (freqtrade, backtesting.py) só como
