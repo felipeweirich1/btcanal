@@ -62,8 +62,8 @@ ruby -run -e httpd -- --port=8765 .
 Requer `curl` e `jq` (o macOS já traz os dois).
 
 ```sh
-scripts/update-data.sh                  # BTCUSDT ETHUSDT SOLUSDT
-scripts/update-data.sh BTCUSDT XRPUSDT  # outros pares; baixa o histórico todo se for novo
+sh scripts/update-data.sh               # BTCUSDT ETHUSDT SOLUSDT
+sh scripts/update-data.sh BTCUSDT XRPUSDT  # outros pares; baixa o histórico todo se for novo
 git add data index.html && git commit -m "Atualiza dados" && git push
 ```
 
@@ -71,7 +71,7 @@ O script usa a API pública de dados de mercado da Binance
 (`data-api.binance.vision/api/v3/klines`, intervalo 1d, sem chave), pagina para trás até
 encontrar o último dia salvo, descarta o candle do dia corrente (ainda aberto) e regenera `index.html`.
 
-Depois de editar `src/template.html`, rode `scripts/build.sh` e faça commit do `index.html`.
+Depois de editar `src/template.html`, rode `sh scripts/build.sh` e faça commit do `index.html`.
 
 ## Limitações
 
