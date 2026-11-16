@@ -48,6 +48,7 @@ data/<PAR>.json          candles diários [[dia, open, high, low, close], ...], 
 data/all.json            todos os pares juntos (é o que vai embutido)
 scripts/update-data.sh   baixa candles novos da Binance e regenera a página
 scripts/build.sh         gera index.html a partir do template e de data/all.json
+tests/                   testes do motor (sh tests/run.sh)
 index.html               página gerada, servida pelo GitHub Pages (não edite à mão)
 manifest.webmanifest     dados do app instalável; sw.js guarda a página para uso offline
 assets/                  logo, ícones e imagem de compartilhamento
@@ -81,6 +82,18 @@ O script usa a API pública de dados de mercado da Binance
 encontrar o último dia salvo, descarta o candle do dia corrente (ainda aberto) e regenera `index.html`.
 
 Depois de editar `src/template.html`, rode `sh scripts/build.sh` e faça commit do `index.html`.
+
+## Testes
+
+No macOS, sem instalar nada:
+
+```sh
+sh tests/run.sh
+```
+
+Verifica que nenhuma estratégia nem o HMM olham o futuro, compara o simulador com um cálculo vetorizado
+independente, testa stop móvel, alvo por tempo, gap e stop/alvo no mesmo candle, confere que o walk-forward
+nunca treina com dados do teste e compara resultados conhecidos (regressão).
 
 ## Limitações
 
